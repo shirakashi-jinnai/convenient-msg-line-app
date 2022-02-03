@@ -13,7 +13,8 @@
   "dependencies": {
     "@line/bot-sdk": "^7.4.0",
     "dotenv": "^14.3.2",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "googleapis": "^94.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

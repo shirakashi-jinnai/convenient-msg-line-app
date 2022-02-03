@@ -24,10 +24,24 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  return client.replyMessage(event.replyToken, {
-    type: "text",
-    text: event.message.text,
-  });
+  if (event.message.text === "Google検索") {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: "google検索の処理が走る",
+    });
+  }
+  if (event.message.text === "店舗を探す") {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: "目当ての店舗を位置情報で返す",
+    });
+  }
+  if (event.message.text === "乗り換え案内") {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: "Frexテキストで返す",
+    });
+  }
 }
 
 app.listen(PORT, () => {
