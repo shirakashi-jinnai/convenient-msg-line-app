@@ -1,8 +1,27 @@
 const line = require("@line/bot-sdk");
 const express = require("express");
+const { google, searchconsole_v1 } = require("googleapis");
 const PORT = process.env.PORT || 3000;
 const app = express();
+require("dotenv").config();
 
+const customSearch = google.customsearch("v1");
+
+async function googleSearch(keyword) {
+  const res = await customSearch.cse.siterestrict.list({
+    auth: "AIzaSyB8PBDS-Az1oCiRIvnbdojPnzpoM2ZSz7M",
+    cx: "63412fd1c3dbedc60",
+    q: keyword,
+  });
+  return res.data;
+}
+
+const test = async () => {
+  const res = await googleSearch("ジョジョ");
+  console.log(res);
+};
+
+test();
 const config = {
   channelAccessToken: process.env.LINE_ACCESS_TOKEN,
   channelSecret: process.env.LINE_CHANNEL_SECRET,
@@ -27,13 +46,13 @@ function handleEvent(event) {
   if (event.message.text === "Google検索") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: "google検索の処理が走る",
+      text: "検索したい事を入力してくだちい",
     });
   }
   if (event.message.text === "店舗を探す") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: "目当ての店舗を位置情報で返す",
+      text: String(event),
     });
   }
   if (event.message.text === "乗り換え案内") {
